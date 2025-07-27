@@ -5,18 +5,18 @@ import { Box } from '@mui/material';
 import TopRiskOwnersCard from './cards/TopRiskOwnersCard';
 import RisksByDepartmentCard from './cards/RisksByDepartmentCard';
 import TopAIModelsCard from './cards/TopAIModelsCard';
-import SummaryCard from './cards/summaryCard/SummaryCard';
-import RecapCardTable from './cards/RecapCardTable';
+//import SummaryCard from './cards/summaryCard/SummaryCard';
+import AlertsRecapCard from './cards/AlertsRecapCard';
 //import FunnelCard from './FunnelCard';
 
 const OverviewPage = () => {
   return (
     <Box className="defaultPage homePage">
-      <Box className="homePageRow">
+      {/*<Box className="homePageRow">
         <SummaryCard />
-      </Box>
+      </Box>*/}
       <Box className="homePageRow">
-        <RecapCardTable />
+        <AlertsRecapCard />
         <TopAIModelsCard />
       </Box>
       <Box className="homePageRow finalRow">
