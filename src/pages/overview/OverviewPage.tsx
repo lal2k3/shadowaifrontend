@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 //import ZeroDayDoughnutCard from './cards/ZeroDayDoughnutCard';
 import TopRiskOwnersCard from './cards/TopRiskOwnersCard';
 import RisksByDepartmentCard from './cards/RisksByDepartmentCard';
-import TopCvesRiskCard from './cards/TopCvesRiskCard';
+import TopAIModelsCard from './cards/TopAIModelsCard';
 import SummaryCard from './cards/summaryCard/SummaryCard';
 import RecapCardTable from './cards/RecapCardTable';
 //import FunnelCard from './FunnelCard';
@@ -17,7 +17,7 @@ const OverviewPage = () => {
       </Box>
       <Box className="homePageRow">
         <RecapCardTable />
-        <TopCvesRiskCard />
+        <TopAIModelsCard />
       </Box>
       <Box className="homePageRow finalRow">
         <RisksByDepartmentCard />
