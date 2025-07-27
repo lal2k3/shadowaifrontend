@@ -1,0 +1,84 @@
+/* Container for the entire ConditionSelector component */
+.conditionSelectorContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+  
+/* Dropdown for selecting conditions */
+.conditionDropdown {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+}
+  
+/* Each condition row container */
+.conditionRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    justify-content: space-between;
+}
+  
+/* Labels for each condition */
+.conditionLabel {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    flex: 1;
+}
+  
+/* Dropdown for operators and values */
+.operatorDropdown,
+.valueDropdown {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    color: #333;
+    width: 200px;
+}
+  
+/* Number input for numeric values */
+.numberInput {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+  
+/* Remove button */
+.removeButton {
+    background-color: #ff4d4d; /* צבע רקע אדום */
+    color: white; /* טקסט לבן */
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 8px 12px; /* התאמת גודל הכפתור */
+    border-radius: 6px;
+    transition: background-color 0.2s ease, transform 0.2s ease; /* אנימציה */
+}
+
+.removeButton:hover {
+    background-color: #d93636; /* כהה יותר */
+    transform: scale(1.05); /* הגדלה קלה */
+}
+
+/* שורות מוזחות */
+.indentedGroup {
+    margin-left: 20px; 
+    padding-left: 10px;
+}

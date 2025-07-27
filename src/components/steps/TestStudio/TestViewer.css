@@ -1,0 +1,16 @@
+.test-viewer-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .api-call-section {
+    flex: 1;
+    border-right: 1px solid #ccc;
+  }
+  
+  .collection-section {
+    flex: 1;
+  }
+  

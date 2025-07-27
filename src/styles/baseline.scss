@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Hind+Siliguri:wght@300;400;500;600;700&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+html,
+body {
+  font-family: 'Ubuntu', sans-serif;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+$menuBackgroundColor: #39383e;
+$menuItemColor: #ffffff;
+$itemSelectedBgColor: #CBBACC;
+$itemSelectedBgImage: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
+$itemSelectedColor: #ffffff;
+$menuIconsWidth: 60px;
+
+$defaultCardBackgroundColor: #ffffff;
+$pageMaxWidth: 1600px;
+$defaultCardPadding: 20px;
+
+.mainPanel {
+  background-color: #f6f6f6;
+  height: 100%;
+
+  .content {
+    display: flex;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0px;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+}
+
+.compress-main-icon {
+  color: $menuItemColor;
+}
+
+.compressedmenu {
+  width: 100%;
+  background-color: $menuBackgroundColor;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0px 0px 10px 0px #000;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.menuItem {
+  &.logo {
+    width: 100%;
+    justify-content: center;
+
+    .link {
+      gap: 10px;
+      align-items: center;
+    }
+  }
+
+  &.item {
+    justify-content: start;
+
+    &.compress, &.standard {
+      width: 100%;
+
+      .link {
+        padding: 10px;
+        width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+        justify-content: start;
+        box-sizing: border-box;
+        border-radius: 5px;
+        align-items: center;
+        gap: 5px;
+  
+        &.selected {
+          background-color: $itemSelectedBgColor;
+          background-image: $itemSelectedBgImage;
+          color: $itemSelectedColor;
+        }
+      }
+    }
+
+    &.compressd-top-level {
+      .link {
+        padding: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        justify-content: start;
+        box-sizing: border-box;
+        border-radius: 5px;
+        align-items: center;
+        gap: 5px;
+  
+        &.selected {
+          background-color: $itemSelectedBgColor;
+          background-image: $itemSelectedBgImage;
+          color: $itemSelectedColor;
+        }
+      }      
+    }
+  }
+}
+
+.standardmenu {
+  background-color: $menuBackgroundColor;
+  box-shadow: 0px 0px 10px 0px #000;
+  display: flex;
+
+  &.icons-only {
+    width: $menuIconsWidth !important;
+    min-width: $menuIconsWidth !important;
+    max-width: $menuIconsWidth !important;
+  }
+
+  &.horizontal {
+    width: 10%;
+    min-width: 200px;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 20px 0px;
+
+    .topitems {
+      display: flex;
+      gap: 20px;
+      align-items: start;
+      padding-right: 10px;
+      padding-left: 10px;
+      box-sizing: border-box;
+      flex-direction: column;
+    }
+
+    .bottomitems {
+      display: flex;
+      gap: 20px;
+      align-items: start;
+      padding-right: 10px;
+      padding-left: 10px;
+      box-sizing: border-box;
+      flex-direction: column;
+    }
+
+    .menuItem {
+      &.logo {
+        padding-top: 10px;
+        width: 100%;
+        justify-content: center;
+
+        .link {
+          gap: 10px;
+          align-items: center;
+          color: $menuItemColor;
+        }
+      }
+
+      &.item {
+        width: 100%;
+        justify-content: start;
+
+        .link {
+          padding: 10px;
+          justify-content: start;
+          box-sizing: border-box;
+          width: 100%;
+          border-radius: 5px;
+          align-items: center;
+          gap: 5px;
+          color: $menuItemColor;
+
+          &.selected {
+            background-color: $itemSelectedBgColor;
+            background-image: $itemSelectedBgImage;
+            color: $itemSelectedColor;
+          }
+
+          &.icons-only {
+            font-size: 24px;
+            justify-content: center !important;
+          }
+        }
+      }
+    }
+  }
+
+  &.vertical {
+    height: 100px;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 2px solid grey;
+    align-items: center;
+
+    .menuItem {
+      &.logo {
+        width: 100%;
+        justify-content: center;
+
+        .link {
+          gap: 10px;
+          align-items: center;
+        }
+      }
+
+      &.item {
+        justify-content: start;
+
+        .link {
+          padding: 10px;
+          justify-content: start;
+          box-sizing: border-box;
+          width: 100%;
+          border-radius: 5px;
+          align-items: center;
+          gap: 5px;
+
+          &.selected {
+            background-color: $itemSelectedBgColor;
+            background-image: $itemSelectedBgImage;
+            color: $itemSelectedColor;
+          }
+        }
+      }
+    }
+  }
+}
+
+.defaultPage {
+  max-width: $pageMaxWidth;
+  width: 100%;
+}
+
+.homePage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .homePageRow {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .finalRow {
+    padding-bottom: 20px;
+  }
+}
+
+.defaultCard {
+  padding: 20px;
+  background-color: $defaultCardBackgroundColor;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px #d3d3d3;
+
+  .card-title {
+    font-size: 18px;
+    display: flex;
+    gap: 10px;
+    color: #000000;
+    align-items: center;
+  }
+}
+
+.funnelCard {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0;
+}
+
+.piplelinesCard {
+  min-width: 300px;
+  width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0;
+  height: 30vh;
+}
+
+.cveDoughnutCard {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  height: 30vh;
+  flex: 1 0;
+}
+
+.recapCardold {
+  max-width: calc($pageMaxWidth);
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  flex: 1 0;
+
+  .recapStats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+}
+
+.attackFlowContainer {
+  width: 800px;
+  height: 800px;
+}
+
+.stat {
+  flex: 0 0 40%;
+
+  .stat-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row;
+
+    .stat-logo {
+      min-width: 52px;
+      min-height: 52px;
+      max-width: 52px;
+      max-height: 52px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+    }
+
+    .value {
+      display: flex;
+      flex-direction: column;
+      align-self: stretch;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      gap: 5px;
+      font-size: 14px;
+      max-width: 90px;
+      min-width: 90px;
+      max-height: 52px;
+      min-height: 52px;
+      text-wrap: wrap;
+
+      .stat-title {
+        display: flex;
+        align-items: center;
+      }
+
+      .stat-value {
+        font-weight: 600;
+      }
+    }
+  }
+}

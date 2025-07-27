@@ -1,0 +1,156 @@
+$integrationSize: 240px;
+$integrationLogoSize: 64px;
+
+$integrationWizardSize: 128px;
+$integrationWizardLogoSize: 48px;
+
+$integrationWizardSize: 128px;
+$integrationWizardLogoSize: 48px;
+
+.integrationspanel {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.integrationitem {
+  display: flex;
+  flex-direction: column;
+  width: $integrationSize;
+  min-width: $integrationSize;
+  height: $integrationSize;
+  min-height: $integrationSize;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 3px #e5e5e5 dashed;
+  align-items: center;
+  justify-content: space-evenly;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .integrationitemlogo {
+    color: #000000;
+    font-size: $integrationLogoSize;
+    width: $integrationLogoSize;
+    min-width: $integrationLogoSize;
+    height: $integrationLogoSize;
+    min-height: $integrationLogoSize;
+  }
+}
+
+.integrationsdrawer {
+  width: 50%;
+  box-shadow: 0px 0px 10px 0px #525252;
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.integrationwizardcontainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  .wizardsteps {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    .header {
+      height: 50px;
+      width: 100%;
+    }
+
+    .footer {
+      height: 50px;
+      width: 100%;
+    }
+
+    .wizardintegrationscontainer {
+      flex: auto;
+      overflow: auto;
+      box-sizing: border-box;
+      padding: 10px;
+
+      .wizardintegrationsstepone {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+  
+        .integration {
+          width: $integrationWizardSize;
+          min-width: $integrationWizardSize;
+          height: $integrationWizardSize;
+          min-height: $integrationWizardSize;
+          border-radius: 7px;
+          border-style: dashed;
+          border-color: #ddd;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #000000;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &.selected {
+            color: #00f2ff;
+            border-color: #00f2ff;
+          }
+  
+          .integrationlogo {
+            font-size: $integrationWizardLogoSize;
+            width: $integrationWizardLogoSize;
+            min-width: $integrationWizardLogoSize;
+            height: $integrationWizardLogoSize;
+            min-height: $integrationWizardLogoSize;
+          }
+        }
+      }
+    }
+  }
+}
+
+.wizardnavigation {
+  box-sizing: border-box;
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.wizardtitle {
+  box-sizing: border-box;
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.githubconfig {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: auto;
+  box-sizing: border-box;
+  padding-top: 10px;
+}
+
+.formrow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}

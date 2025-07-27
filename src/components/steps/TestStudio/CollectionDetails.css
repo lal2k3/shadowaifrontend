@@ -1,0 +1,48 @@
+/* TestViewer.css */
+.test-viewer-container {
+    display: flex;
+  }
+  
+  .collection-section, .api-call-section {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .api-call-section {
+    border-left: 1px solid #ddd;
+  }
+  
+  /* CollectionDetails.css */
+  .collection-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .folder {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    margin-bottom: 5px;
+  }
+  
+  .folder:hover {
+    background-color: #e0e0e0;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+  
+  li {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+  }
+  
+  li:hover {
+    background-color: #f9f9f9;
+  }
+  
