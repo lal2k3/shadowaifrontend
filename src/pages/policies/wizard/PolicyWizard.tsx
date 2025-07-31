@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
-import IntegrationWizardNavigation from 'pages/integrations/wizard/IntegrationWizardNavigation';
+import PolicyWizardNavigation from './PolicyWizardNavigation';
+import PolicyWizardStepOne from './PolicyWizardStepOne';
 
 const PolicyWizard = () => {
   return (
@@ -8,9 +9,11 @@ const PolicyWizard = () => {
         <Box className="header">
           <Box className="wizardtitle">Policy Configuration</Box>
         </Box>
-        <Box className="wizardintegrationscontainer"></Box>{' '}
+        <Box className="wizardintegrationscontainer">
+          <PolicyWizardStepOne />
+        </Box>
         <Box className="footer">
-          <IntegrationWizardNavigation />
+          <PolicyWizardNavigation />
         </Box>
       </Box>
     </Box>

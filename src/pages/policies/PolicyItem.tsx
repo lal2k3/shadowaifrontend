@@ -24,7 +24,7 @@ const PolicyItem = ({ data }: Prop) => {
       onClick={() => {
         dispatch(setPolicyWizardStep(1));
         dispatch(
-          policySetWizardNextNavigation({ visible: true, enabled: false }),
+          policySetWizardNextNavigation({ visible: true, enabled: true }),
         );
         dispatch(
           policySetWizardBackNavigation({ visible: false, enabled: false }),
