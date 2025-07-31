@@ -49,12 +49,6 @@ const PolicyWizardStepOne = () => {
         <Box>Applies To</Box>
         <MultiSelect options={APPLIES_TO_VALUES} label="Applies to" />
         <Box>When</Box>
-        <TextField
-          label="Recurrence"
-          variant="outlined"
-          value={currentPolicy.recurrence}
-          onChange={(e) => updateFieldValue('recurrence', e.target.value)}
-        />
       </Box>
     </Box>
   );

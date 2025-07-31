@@ -28,11 +28,21 @@ type PoliciesState = {
 export const EMPTY_POLICY: Policy = {
   id: '',
   name: '',
-  trigger: '',
-  time: '',
-  recurrence: '',
-  appliesTo: '',
-  rules: [],
+  policy: {
+    rules: [],
+    description: '',
+    permissions: [],
+  },
+  ownerId: '',
+  organizationId: '',
+  isActive: false,
+  createdAt: '',
+  updatedAt: '',
+  owner: {
+    id: '',
+    username: '',
+    email: '',
+  },
 };
 
 export const fetchPolicies = createAsyncThunk(
@@ -93,7 +103,7 @@ const general = createSlice({
     },
     policyUpdateValue(state, action) {
       const field: PolicyKey = action.payload.field;
-      state.currentPolicy[field] = action.payload.value;
+      //state.currentPolicy[field] = action.payload.value;
     },
   },
   extraReducers: (builder) => {
@@ -104,7 +114,7 @@ const general = createSlice({
       })
       .addCase(fetchPolicies.fulfilled, (state, action) => {
         state.loading = false;
-        state.policies = action.payload;
+        state.policies = action.payload?.policies;
       })
       .addCase(fetchPolicies.rejected, (state, action) => {
         state.loading = false;
