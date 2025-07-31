@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { IRootState } from 'store/reducers';
 import LoginPanel from './LoginPanel';
 import BasicLoginButton from './BasicLoginButton';
+import LoginError from './LoginError';
 //import { setDrawer } from 'store/reducers/integrations';
 
 const LoginDrawer = () => {
@@ -29,6 +30,7 @@ const LoginDrawer = () => {
           </Box>
           <Box className="footer">
             <BasicLoginButton />
+            <LoginError />
           </Box>
         </Box>
       </Box>

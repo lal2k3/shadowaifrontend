@@ -1,28 +1,53 @@
-import { Box } from '@mui/material';
-import { ReactNode } from 'react';
+import { Box, CircularProgress, Alert } from '@mui/material';
+import { ReactNode, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PolicyItem from './PolicyItem';
-import { MOCK_POLICIES } from 'mocks/policiesMockData';
 import NewPolicyItem from './NewPolicyItem';
+import { fetchPolicies } from 'store/reducers/policies';
+import { IRootState } from 'store/reducers';
+import { AppDispatch } from 'store';
 
 const PoliciesPanel = () => {
-  const data = MOCK_POLICIES;
+  const dispatch = useDispatch<AppDispatch>();
+  const { policies, loading, error } = useSelector((state: IRootState) => state.policies);
+  const token = useSelector((state: IRootState) => state.auth.token);
 
-  const renderPolicieis = () => {
-    const policieisElements: ReactNode[] = [];
+  useEffect(() => {
+    dispatch(fetchPolicies());
+  }, [dispatch, token]);
 
-    data.forEach((policy) => {
-      policieisElements.push(
+  const renderPolicies = () => {
+    const policyElements: ReactNode[] = [];
+
+    policies?.forEach((policy) => {
+      policyElements.push(
         <PolicyItem data={policy} key={`policy-${policy.id}`} />,
       );
     });
 
-    return policieisElements;
+    return policyElements;
   };
+
+  if (loading) {
+    return (
+      <Box className="integrationspanel" display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box className="integrationspanel">
+        <Alert severity="error">{error}</Alert>
+      </Box>
+    );
+  }
 
   return (
     <Box className="integrationspanel">
       <NewPolicyItem />
-      {renderPolicieis()}
+      {renderPolicies()}
     </Box>
   );
 };

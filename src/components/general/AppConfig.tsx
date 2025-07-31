@@ -1,11 +1,13 @@
 type AppConfigType = {
-  dir: 'ltr' | 'rtl',
-  menuAnchor: 'left' | 'right' | 'top' | 'bottom',
-  mode: 'horizontal' | 'vertical',
-  collapseWidth: number,
-  menuStyle: 'standard' | 'icons-only',
-  appName: string
-}
+  dir: 'ltr' | 'rtl';
+  menuAnchor: 'left' | 'right' | 'top' | 'bottom';
+  mode: 'horizontal' | 'vertical';
+  collapseWidth: number;
+  menuStyle: 'standard' | 'icons-only';
+  appName: string;
+  serverUrl: string;
+  authPath: string;
+};
 
 export const AppConfig: AppConfigType = {
   dir: 'ltr',
@@ -13,5 +15,7 @@ export const AppConfig: AppConfigType = {
   mode: 'horizontal',
   collapseWidth: 650,
   menuStyle: 'icons-only',
-  appName: 'ShadowAI'
+  appName: 'ShadowAI',
+  serverUrl: 'http://localhost:3001/api',
+  authPath: '/auth/login',
 };

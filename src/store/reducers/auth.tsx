@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { AppConfig } from 'components/general/AppConfig';
 
 export enum CONNECTION_STATE {
   'NOT_CONNECTED',
@@ -7,11 +8,13 @@ export enum CONNECTION_STATE {
   'INIT',
 }
 
-const TOKEN_STORAGE_NAME = 'saferuntoken';
+const TOKEN_STORAGE_NAME = 'shadowaitoken';
 
 type AuthState = {
   token: string;
   state: CONNECTION_STATE;
+  error: null | string;
+  authCount: number;
   login: {
     open: boolean;
     loading: boolean;
@@ -25,6 +28,8 @@ type AuthState = {
 const initialState: AuthState = {
   token: localStorage.getItem(TOKEN_STORAGE_NAME),
   state: CONNECTION_STATE.INIT,
+  error: null,
+  authCount: 0,
   login: {
     open: false,
     loading: false,
@@ -39,8 +44,7 @@ export const basicLogin = createAsyncThunk(
   'loginbasic',
   async (config: { user: string; password: string }) => {
     const base64 = window.btoa(`${config.user}:${config.password}`);
-
-    const response = await axios.get(process.env.TOKEN_API_PATH, {
+    const response = await axios.get(AppConfig.authPath, {
       headers: {
         Authorization: `Basic ${base64}`,
       },
@@ -56,6 +60,9 @@ const auth = createSlice({
   reducers: {
     setToken(state, action) {
       state.token = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
     },
     setLoginOpen(state, action) {
       state.login.open = action.payload;
@@ -77,9 +84,11 @@ const auth = createSlice({
         state.token = action.payload.token;
         state.login.open = false;
         state.login.basic.password = null;
+        state.authCount = 0;
         localStorage.setItem(TOKEN_STORAGE_NAME, action.payload.token);
       })
       .addCase(basicLogin.rejected, (state) => {
+        state.authCount++;
         state.login.loading = false;
       });
   },
@@ -87,5 +96,5 @@ const auth = createSlice({
 
 export default auth.reducer;
 
-export const { setToken, setLoginOpen, setBasicUser, setBasicPassword } =
+export const { setToken, setError, setLoginOpen, setBasicUser, setBasicPassword } =
   auth.actions;

@@ -25,6 +25,16 @@
     .footer {
       height: 50px;
       width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      .errorcontainer {
+        margin: 20px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #cf1313;
+      }
     }
 
     .loginpanelcontainer {

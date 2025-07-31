@@ -1,9 +1,15 @@
 import axios from 'axios';
+import { AppConfig } from 'components/general/AppConfig';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'store';
 import { IRootState } from 'store/reducers';
-import { CONNECTION_STATE, setLoginOpen, setToken } from 'store/reducers/auth';
+import {
+  CONNECTION_STATE,
+  setError,
+  setLoginOpen,
+  setToken,
+} from 'store/reducers/auth';
 
 const CommunicationInit = () => {
   const token = useSelector((state: IRootState) => state.auth.token);
@@ -11,7 +17,7 @@ const CommunicationInit = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const initComms = () => {
-    axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+    axios.defaults.baseURL = AppConfig.serverUrl;
 
     axios.interceptors.response.use(
       (response) => {
@@ -21,8 +27,9 @@ const CommunicationInit = () => {
         if (error.response.status === 401) {
           dispatch(setToken(null));
           dispatch(setLoginOpen(true));
+          dispatch(setError('Wrong username or password'));
         }
-        return error;
+        throw error;
       },
     );
   };

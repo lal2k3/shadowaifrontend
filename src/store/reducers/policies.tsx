@@ -1,7 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { Policy, PolicyKey } from 'pages/policies/PolicyUtils';
 
 type PoliciesState = {
+  policies: Policy[];
+  loading: boolean;
+  error: string | null;
   sidemenu: {
     open: boolean;
   };
@@ -31,7 +35,18 @@ export const EMPTY_POLICY: Policy = {
   rules: [],
 };
 
+export const fetchPolicies = createAsyncThunk(
+  'policies/fetchPolicies',
+  async () => {
+    const response = await axios.get('/policies');
+    return response.data;
+  },
+);
+
 const initialState: PoliciesState = {
+  policies: [],
+  loading: false,
+  error: null,
   sidemenu: {
     open: false,
   },
@@ -80,6 +95,21 @@ const general = createSlice({
       const field: PolicyKey = action.payload.field;
       state.currentPolicy[field] = action.payload.value;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPolicies.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPolicies.fulfilled, (state, action) => {
+        state.loading = false;
+        state.policies = action.payload;
+      })
+      .addCase(fetchPolicies.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch policies';
+      });
   },
 });
 
