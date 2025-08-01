@@ -16,6 +16,6 @@ export const AppConfig: AppConfigType = {
   collapseWidth: 650,
   menuStyle: 'icons-only',
   appName: 'ShadowAI',
-  serverUrl: 'http://localhost:3001/api',
+  serverUrl: process.env.REACT_APP_API_URL,
   authPath: '/auth/login',
 };
