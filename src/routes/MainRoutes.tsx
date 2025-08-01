@@ -13,6 +13,8 @@ const IntegrationPage = lazy(
   () => import('../pages/integrations/IntegrationPage'),
 );
 
+const AgentsPage = lazy(() => import('../pages/agents/AgentsPage'));
+
 const MainRoutes: RouteObject = {
   path: '/',
   element: <MainPanel />,
@@ -28,6 +30,10 @@ const MainRoutes: RouteObject = {
     {
       path: 'integrations',
       element: <SuspenseRoute component={<IntegrationPage />} />,
+    },
+    {
+      path: 'agents',
+      element: <SuspenseRoute component={<AgentsPage />} />,
     },
     {
       path: 'settings',

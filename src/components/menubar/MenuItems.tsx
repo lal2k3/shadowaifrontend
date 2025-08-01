@@ -5,7 +5,7 @@ import { IoSpeedometerOutline } from 'react-icons/io5';
 import { TbPuzzle2 } from 'react-icons/tb';
 //import { IoMedkitOutline } from 'react-icons/io5';
 //import { TbTopologyStar3 } from 'react-icons/tb';
-import { RiFileList3Line } from 'react-icons/ri';
+import { RiFileList3Line, RiRobotLine } from 'react-icons/ri';
 import { AppConfig } from 'components/general/AppConfig';
 //import { LuHandshake } from "react-icons/lu";
 
@@ -42,6 +42,13 @@ const MenuItems = ({ mode }: Props) => {
         url="/policies"
         mode={mode}
         title="Policies"
+      />
+      <MenuItem
+        content="Agents"
+        icon={<RiRobotLine />}
+        url="/agents"
+        mode={mode}
+        title="Agents"
       />
       {/*<MenuItem
         content="Remediation"
