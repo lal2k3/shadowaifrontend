@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Agent, AgentKey } from 'pages/agents/AgentUtils';
+import { Agent/*, AgentKey*/ } from 'pages/agents/AgentUtils';
 
 type AgentsState = {
   agents: Agent[];
@@ -61,8 +61,8 @@ const agents = createSlice({
     setCurrentAgent(state, action) {
       state.currentAgent = action.payload;
     },
-    agentUpdateValue(state, action) {
-      const field: AgentKey = action.payload.field;
+    agentUpdateValue(/*state, action*/) {
+      //const field: AgentKey = action.payload.field;
       // Handle nested updates if needed
     },
   },
