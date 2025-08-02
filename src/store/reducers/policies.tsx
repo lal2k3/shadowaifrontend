@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { isEmpty, isObjectEmpty } from 'components/general/Utils';
 import { Policy, PolicyKeyToEdit } from 'pages/policies/PolicyUtils';
 
 type PoliciesState = {
@@ -48,6 +49,16 @@ export const fetchPolicies = createAsyncThunk(
     return response.data;
   },
 );
+
+const validatePolicy = (policy: Policy) => {
+  let isValidate = true;
+
+  if (isEmpty(policy.name)) {
+    isValidate = false;
+  }
+
+  if (isObjectEmpty(policy.policy)) return isValidate;
+};
 
 const initialState: PoliciesState = {
   policies: [],
@@ -110,6 +121,12 @@ const general = createSlice({
         case 'isActive':
           state.currentPolicy[field] = action.payload.value;
           break;
+      }
+
+      if (validatePolicy(state.currentPolicy)) {
+        state.wizard.navigation.next.enabled = true;
+      } else {
+        state.wizard.navigation.next.enabled = false;
       }
     },
   },

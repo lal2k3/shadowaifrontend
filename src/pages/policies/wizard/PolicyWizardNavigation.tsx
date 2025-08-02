@@ -40,7 +40,7 @@ const PolicyWizardNavigation = () => {
           variant="contained"
           onClick={() => dispatch(policyWizardNextStep())}
         >
-          Next
+          Finish
         </Button>
       </Box>
     );

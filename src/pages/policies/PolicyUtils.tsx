@@ -1,7 +1,7 @@
 export type Policy = {
   id: string;
   name: string;
-  policy: unknown;
+  policy: object;
   ownerId: string;
   organizationId: string;
   isActive: boolean;

@@ -11,7 +11,10 @@ const PolicyWizardStepOne = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  const updateFieldValue = (field: PolicyKeyToEdit, value: string | boolean) => {
+  const updateFieldValue = (
+    field: PolicyKeyToEdit,
+    value: string | boolean,
+  ) => {
     dispatch(policyUpdateValue({ field, value }));
   };
 
@@ -29,7 +32,11 @@ const PolicyWizardStepOne = () => {
 
         <TextField
           label="Policy JSON"
-          value={typeof currentPolicy?.policy === 'string' ? currentPolicy.policy : JSON.stringify(currentPolicy?.policy || {}, null, 2)}
+          value={
+            typeof currentPolicy?.policy === 'string'
+              ? currentPolicy.policy
+              : JSON.stringify(currentPolicy?.policy || {}, null, 2)
+          }
           onChange={(e) => {
             try {
               const parsed = JSON.parse(e.target.value);
