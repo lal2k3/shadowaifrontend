@@ -1,11 +1,7 @@
 export type Policy = {
   id: string;
   name: string;
-  policy: {
-    rules: PolicyRule[];
-    description: string;
-    permissions: string[];
-  };
+  policy: unknown;
   ownerId: string;
   organizationId: string;
   isActive: boolean;
@@ -20,24 +16,12 @@ export type Policy = {
 
 export type PolicyKey = keyof Policy;
 
-export type PolicyRule = {
-  id: string;
-  name: string;
-  rule: string;
-};
-
-
 //Policy Example
 /*{
   "id": "281c8896-3a8d-4ca6-93d7-69d212faf81c",
   "name": "Default Policy",
   "policy": {
-      "rules": [],
-      "description": "Default security policy for organization",
-      "permissions": [
-          "read",
-          "write"
-      ]
+      //any json
   },
   "ownerId": "8e2cd66f-4314-40a7-a954-941ef171dd7a",
   "organizationId": "cf0dd276-e87c-4344-bfbd-5a000876a40b",

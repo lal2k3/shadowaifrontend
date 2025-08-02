@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Policy/*, PolicyKey*/ } from 'pages/policies/PolicyUtils';
+import { Policy /*, PolicyKey*/ } from 'pages/policies/PolicyUtils';
 
 type PoliciesState = {
   policies: Policy[];
@@ -28,11 +28,7 @@ type PoliciesState = {
 export const EMPTY_POLICY: Policy = {
   id: '',
   name: '',
-  policy: {
-    rules: [],
-    description: '',
-    permissions: [],
-  },
+  policy: {},
   ownerId: '',
   organizationId: '',
   isActive: false,
@@ -102,7 +98,6 @@ const general = createSlice({
       state.wizard.navigation.back = action.payload;
     },
     policyUpdateValue(/*state, action*/) {
-
       //const field: PolicyKey = action.payload.field;
       //state.currentPolicy[field] = action.payload.value;
     },
