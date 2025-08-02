@@ -12,6 +12,7 @@ type PoliciesState = {
   };
   currentPolicy: Policy;
   wizard: {
+    totalSteps: number;
     step: number;
     navigation: {
       back: {
@@ -69,6 +70,7 @@ const initialState: PoliciesState = {
   },
   currentPolicy: EMPTY_POLICY,
   wizard: {
+    totalSteps: 1,
     step: 0,
     navigation: {
       back: {
