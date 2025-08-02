@@ -120,9 +120,6 @@ const general = createSlice({
         case 'policy':
           state.currentPolicy[field] = action.payload.value;
           break;
-        case 'isActive':
-          state.currentPolicy[field] = action.payload.value;
-          break;
       }
 
       if (validatePolicy(state.currentPolicy)) {

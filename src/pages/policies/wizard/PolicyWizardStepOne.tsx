@@ -1,4 +1,4 @@
-import { Box, TextField, FormControlLabel, Checkbox } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'store';
 import { IRootState } from 'store/reducers';
@@ -51,16 +51,6 @@ const PolicyWizardStepOne = () => {
           variant="outlined"
           placeholder="Enter policy JSON configuration"
           sx={{ '& .MuiInputBase-root': { fontFamily: 'monospace' } }}
-        />
-
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={currentPolicy?.isActive || false}
-              onChange={(e) => updateFieldValue('isActive', e.target.checked)}
-            />
-          }
-          label="Active Policy"
         />
       </Box>
     </Box>

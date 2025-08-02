@@ -14,7 +14,7 @@ export type Policy = {
   };
 };
 
-export type PolicyKeyToEdit = 'name' | 'policy' | 'isActive';
+export type PolicyKeyToEdit = 'name' | 'policy';
 
 //Policy Example
 /*{
