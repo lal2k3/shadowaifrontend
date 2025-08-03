@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { RiAddLine } from 'react-icons/ri';
+import { RiAddCircleFill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store';
 import {
@@ -29,7 +29,7 @@ const NewAgentItem = () => {
         dispatch(setAgentsSideMenuOpen(true));
       }}
     >
-      <Box className="integrationitemlogo">{<RiAddLine />}</Box>
+      <Box className="integrationitemlogo">{<RiAddCircleFill />}</Box>
       <Box>Add New Agent</Box>
     </Box>
   );

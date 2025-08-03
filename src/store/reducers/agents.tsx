@@ -111,6 +111,11 @@ const validateAgent = (agent: Agent) => {
     isValidate = false;
   }
 
+  // Validate policy is mandatory
+  if (!agent.policy || isEmpty(agent.policy.id)) {
+    isValidate = false;
+  }
+
   // Validate agent.configuration is valid JSON and not empty, but allow null
   if (agent.configuration !== null) {
     try {
