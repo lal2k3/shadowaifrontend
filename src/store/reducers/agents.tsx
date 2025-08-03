@@ -31,6 +31,7 @@ type AgentsState = {
 
 export const EMPTY_AGENT: Agent = {
   id: '',
+  token: '',
   description: '',
   configuration: null,
   createdAt: '',

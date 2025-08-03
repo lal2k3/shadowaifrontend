@@ -2,6 +2,7 @@ import { Policy } from 'pages/policies/PolicyUtils';
 
 export type Agent = {
   id: string;
+  token: string;
   description: string;
   configuration: object;
   createdAt: string;
