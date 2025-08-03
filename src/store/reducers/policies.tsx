@@ -54,8 +54,15 @@ export const fetchPolicies = createAsyncThunk(
 
 export const createPolicy = createAsyncThunk(
   'policies/createPolicy',
-  async (policyData: { name: string; policy: object }) => {
-    const response = await axios.post('/policies', policyData);
+  async (policyData: { name: string; policy: string | object }) => {
+    const payload = {
+      name: policyData.name,
+      policy:
+        typeof policyData.policy === 'string'
+          ? JSON.parse(policyData.policy)
+          : policyData.policy,
+    };
+    const response = await axios.post('/policies', payload);
     return response.data;
   },
 );
@@ -67,9 +74,16 @@ export const updatePolicy = createAsyncThunk(
     policyData,
   }: {
     id: string;
-    policyData: { name: string; policy: object };
+    policyData: { name: string; policy: string | object };
   }) => {
-    const response = await axios.put(`/policies/${id}`, policyData);
+    const payload = {
+      name: policyData.name,
+      policy:
+        typeof policyData.policy === 'string'
+          ? JSON.parse(policyData.policy)
+          : policyData.policy,
+    };
+    const response = await axios.put(`/policies/${id}`, payload);
     return response.data;
   },
 );

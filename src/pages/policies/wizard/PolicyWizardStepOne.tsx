@@ -38,19 +38,19 @@ const PolicyWizardStepOne = () => {
               : JSON.stringify(currentPolicy?.policy || {}, null, 2)
           }
           onChange={(e) => {
-            try {
-              const parsed = JSON.parse(e.target.value);
-              updateFieldValue('policy', parsed);
-            } catch {
-              updateFieldValue('policy', e.target.value);
-            }
+            updateFieldValue('policy', e.target.value);
           }}
           fullWidth
           multiline
           rows={10}
           variant="outlined"
           placeholder="Enter policy JSON configuration"
-          sx={{ '& .MuiInputBase-root': { fontFamily: 'monospace' } }}
+          sx={{ 
+            '& .MuiInputBase-root': { 
+              fontFamily: 'monospace',
+              whiteSpace: 'pre-wrap'
+            } 
+          }}
         />
       </Box>
     </Box>
