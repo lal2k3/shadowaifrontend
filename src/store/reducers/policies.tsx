@@ -88,6 +88,14 @@ export const updatePolicy = createAsyncThunk(
   },
 );
 
+export const deletePolicy = createAsyncThunk(
+  'policies/deletePolicy',
+  async (id: string) => {
+    await axios.delete(`/policies/${id}`);
+    return id;
+  },
+);
+
 const validatePolicy = (policy: Policy) => {
   let isValidate = true;
 
@@ -225,6 +233,18 @@ const general = createSlice({
       .addCase(updatePolicy.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to update policy';
+      })
+      .addCase(deletePolicy.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deletePolicy.fulfilled, (state) => {
+        state.loading = false;
+        state.reload = true;
+      })
+      .addCase(deletePolicy.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to delete policy';
       });
   },
 });
