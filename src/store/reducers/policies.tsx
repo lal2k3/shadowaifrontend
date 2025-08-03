@@ -95,7 +95,21 @@ const validatePolicy = (policy: Policy) => {
     isValidate = false;
   }
 
-  if (isObjectEmpty(policy.policy)) {
+  // Validate policy.policy is valid JSON and not empty
+  try {
+    let policyJson;
+    
+    if (typeof policy.policy === 'string') {
+      policyJson = JSON.parse(policy.policy);
+    } else {
+      policyJson = policy.policy;
+    }
+    
+    if (isObjectEmpty(policyJson)) {
+      isValidate = false;
+    }
+  } catch (error) {
+    // Invalid JSON
     isValidate = false;
   }
 
