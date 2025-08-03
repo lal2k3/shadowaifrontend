@@ -18,7 +18,7 @@ const NewAgentItem = () => {
     <Box
       className="integrationitem"
       onClick={() => {
-        dispatch(setAgentWizardStep(0));
+        dispatch(setAgentWizardStep(1));
         dispatch(
           agentSetWizardNextNavigation({ visible: true, enabled: false }),
         );

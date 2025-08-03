@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { isEmpty, isObjectEmpty } from 'components/general/Utils';
 import { Agent, AgentKeyToEdit } from 'pages/agents/AgentUtils';
 
 type AgentsState = {
@@ -57,12 +58,13 @@ export const createAgent = createAsyncThunk(
   'agents/createAgent',
   async (agentData: {
     description: string;
-    configuration: string | object;
+    configuration: string | object | null;
   }) => {
     const payload = {
       description: agentData.description,
-      configuration:
-        typeof agentData.configuration === 'string'
+      configuration: agentData.configuration === null 
+        ? null 
+        : typeof agentData.configuration === 'string'
           ? JSON.parse(agentData.configuration)
           : agentData.configuration,
     };
@@ -78,12 +80,16 @@ export const updateAgent = createAsyncThunk(
     agentData,
   }: {
     id: string;
-    agentData: { description: string; configuration: string | object };
+    agentData: { 
+      description: string; 
+      configuration: string | object | null;
+    };
   }) => {
     const payload = {
       description: agentData.description,
-      configuration:
-        typeof agentData.configuration === 'string'
+      configuration: agentData.configuration === null 
+        ? null 
+        : typeof agentData.configuration === 'string'
           ? JSON.parse(agentData.configuration)
           : agentData.configuration,
     };
@@ -99,6 +105,36 @@ export const deleteAgent = createAsyncThunk(
     return id;
   },
 );
+
+const validateAgent = (agent: Agent) => {
+  let isValidate = true;
+
+  if (isEmpty(agent.description)) {
+    isValidate = false;
+  }
+
+  // Validate agent.configuration is valid JSON and not empty, but allow null
+  if (agent.configuration !== null) {
+    try {
+      let configurationJson;
+      
+      if (typeof agent.configuration === 'string') {
+        configurationJson = JSON.parse(agent.configuration);
+      } else {
+        configurationJson = agent.configuration;
+      }
+      
+      if (isObjectEmpty(configurationJson)) {
+        isValidate = false;
+      }
+    } catch (error) {
+      // Invalid JSON
+      isValidate = false;
+    }
+  }
+
+  return isValidate;
+};
 
 const initialState: AgentsState = {
   agents: [],
@@ -162,11 +198,7 @@ const agents = createSlice({
           break;
       }
 
-      // Simple validation - enable next if description is not empty
-      if (
-        state.currentAgent.description &&
-        state.currentAgent.description.length > 0
-      ) {
+      if (validateAgent(state.currentAgent)) {
         state.wizard.navigation.next.enabled = true;
       } else {
         state.wizard.navigation.next.enabled = false;

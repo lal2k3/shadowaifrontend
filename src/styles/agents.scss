@@ -1,0 +1,17 @@
+.agentwizardstepone {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  .agentwizardform {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: auto;
+    box-sizing: border-box;
+    padding-top: 10px;
+  }
+}

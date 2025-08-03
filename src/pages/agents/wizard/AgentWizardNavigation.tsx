@@ -52,7 +52,7 @@ const AgentWizardNavigation = () => {
     if (step === totalSteps) {
       const agentData = {
         description: currentAgent.description,
-        configuration: currentAgent.configuration,
+        configuration: currentAgent.configuration || null,
       };
 
       if (isEmpty(currentAgent.id)) {

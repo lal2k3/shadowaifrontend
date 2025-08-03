@@ -6,6 +6,7 @@ import 'styles/overview.scss';
 import 'styles/cvesmap.scss';
 import 'styles/integrations.scss';
 import 'styles/policies.scss';
+import 'styles/agents.scss';
 import 'styles/login.scss';
 import 'styles/tables.scss';
 import CommunicationInit from 'utils/authentication/CommunicationInit';
