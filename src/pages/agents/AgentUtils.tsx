@@ -1,7 +1,7 @@
 export type Agent = {
   id: string;
   description: string;
-  configuration: any;
+  configuration: object;
   createdAt: string;
   updatedAt: string;
   organization: {
@@ -11,15 +11,13 @@ export type Agent = {
   policy: {
     id: string;
     name: string;
-    policy: {
-      rules: any[];
-      description: string;
-      permissions: string[];
-    };
+    policy: object;
   };
 };
 
 export type AgentKey = keyof Agent;
+
+export type AgentKeyToEdit = 'description' | 'configuration';
 
 //Agent Example from API
 /*{

@@ -5,6 +5,9 @@ import { AppDispatch } from 'store';
 import {
   setCurrentAgent,
   setAgentsSideMenuOpen,
+  setAgentWizardStep,
+  agentSetWizardNextNavigation,
+  agentSetWizardBackNavigation,
   EMPTY_AGENT,
 } from 'store/reducers/agents';
 
@@ -15,6 +18,13 @@ const NewAgentItem = () => {
     <Box
       className="integrationitem"
       onClick={() => {
+        dispatch(setAgentWizardStep(0));
+        dispatch(
+          agentSetWizardNextNavigation({ visible: true, enabled: false }),
+        );
+        dispatch(
+          agentSetWizardBackNavigation({ visible: false, enabled: false }),
+        );
         dispatch(setCurrentAgent(EMPTY_AGENT));
         dispatch(setAgentsSideMenuOpen(true));
       }}

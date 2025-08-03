@@ -9,8 +9,14 @@ import { AppDispatch } from 'store';
 
 const AgentsPanel = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { agents, loading, error } = useSelector((state: IRootState) => state.agents);
+  const { agents, loading, error, reload } = useSelector((state: IRootState) => state.agents);
   const token = useSelector((state: IRootState) => state.auth.token);
+
+  useEffect(() => {
+    if (reload) {
+      dispatch(fetchAgents());
+    }
+  }, [dispatch, token, reload]);
 
   useEffect(() => {
     dispatch(fetchAgents());
