@@ -1,3 +1,5 @@
+import { Policy } from 'pages/policies/PolicyUtils';
+
 export type Agent = {
   id: string;
   description: string;
@@ -8,16 +10,12 @@ export type Agent = {
     id: string;
     name: string;
   };
-  policy: {
-    id: string;
-    name: string;
-    policy: object;
-  };
+  policy: Policy | null;
 };
 
 export type AgentKey = keyof Agent;
 
-export type AgentKeyToEdit = 'description' | 'configuration';
+export type AgentKeyToEdit = 'description' | 'configuration' | 'policy';
 
 //Agent Example from API
 /*{

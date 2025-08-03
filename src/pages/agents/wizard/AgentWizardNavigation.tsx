@@ -53,6 +53,7 @@ const AgentWizardNavigation = () => {
       const agentData = {
         description: currentAgent.description,
         configuration: currentAgent.configuration || null,
+        policyId: currentAgent.policy?.id || null,
       };
 
       if (isEmpty(currentAgent.id)) {

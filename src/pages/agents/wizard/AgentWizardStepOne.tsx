@@ -1,22 +1,34 @@
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, Autocomplete } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { AppDispatch } from 'store';
 import { IRootState } from 'store/reducers';
 import { AgentKeyToEdit } from '../AgentUtils';
 import { agentUpdateValue } from 'store/reducers/agents';
+import { fetchPolicies } from 'store/reducers/policies';
 
 const AgentWizardStepOne = () => {
   const currentAgent = useSelector(
     (state: IRootState) => state.agents.currentAgent,
   );
+  const policies = useSelector(
+    (state: IRootState) => state.policies.policies,
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   const updateFieldValue = (
     field: AgentKeyToEdit,
-    value: string | boolean,
+    value: unknown,
   ) => {
     dispatch(agentUpdateValue({ field, value }));
   };
+
+  useEffect(() => {
+    // Fetch policies when component mounts if not already loaded
+    if (!policies || policies.length === 0) {
+      dispatch(fetchPolicies());
+    }
+  }, [dispatch, policies]);
 
   return (
     <Box className="agentwizardstepone">
@@ -28,6 +40,22 @@ const AgentWizardStepOne = () => {
           fullWidth
           variant="outlined"
           placeholder="Enter agent description"
+        />
+
+        <Autocomplete
+          options={policies || []}
+          getOptionLabel={(option) => option.name}
+          value={currentAgent?.policy || null}
+          onChange={(_, newValue) => updateFieldValue('policy', newValue)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Policy"
+              placeholder="Select a policy (optional)"
+              variant="outlined"
+            />
+          )}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
         />
 
         <TextField

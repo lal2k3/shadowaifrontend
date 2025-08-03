@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { isEmpty, isObjectEmpty } from 'components/general/Utils';
 import { Agent, AgentKeyToEdit } from 'pages/agents/AgentUtils';
+import { Policy } from 'pages/policies/PolicyUtils';
 
 type AgentsState = {
   agents: Agent[];
@@ -38,15 +39,7 @@ export const EMPTY_AGENT: Agent = {
     id: '',
     name: '',
   },
-  policy: {
-    id: '',
-    name: '',
-    policy: {
-      rules: [],
-      description: '',
-      permissions: [],
-    },
-  },
+  policy: null,
 };
 
 export const fetchAgents = createAsyncThunk('agents/fetchAgents', async () => {
@@ -59,6 +52,7 @@ export const createAgent = createAsyncThunk(
   async (agentData: {
     description: string;
     configuration: string | object | null;
+    policyId?: string | null;
   }) => {
     const payload = {
       description: agentData.description,
@@ -67,6 +61,7 @@ export const createAgent = createAsyncThunk(
         : typeof agentData.configuration === 'string'
           ? JSON.parse(agentData.configuration)
           : agentData.configuration,
+      policyId: agentData.policyId || null,
     };
     const response = await axios.post('/agents', payload);
     return response.data;
@@ -83,6 +78,7 @@ export const updateAgent = createAsyncThunk(
     agentData: { 
       description: string; 
       configuration: string | object | null;
+      policyId?: string | null;
     };
   }) => {
     const payload = {
@@ -92,6 +88,7 @@ export const updateAgent = createAsyncThunk(
         : typeof agentData.configuration === 'string'
           ? JSON.parse(agentData.configuration)
           : agentData.configuration,
+      policyId: agentData.policyId || null,
     };
     const response = await axios.put(`/agents/${id}`, payload);
     return response.data;
@@ -195,6 +192,9 @@ const agents = createSlice({
           break;
         case 'configuration':
           state.currentAgent[field] = action.payload.value;
+          break;
+        case 'policy':
+          state.currentAgent[field] = action.payload.value as Policy;
           break;
       }
 
