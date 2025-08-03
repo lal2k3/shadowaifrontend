@@ -9,12 +9,14 @@ import { AppDispatch } from 'store';
 
 const PoliciesPanel = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { policies, loading, error } = useSelector((state: IRootState) => state.policies);
+  const { policies, loading, error, reload } = useSelector((state: IRootState) => state.policies);
   const token = useSelector((state: IRootState) => state.auth.token);
 
   useEffect(() => {
-    dispatch(fetchPolicies());
-  }, [dispatch, token]);
+    if (reload) {
+      dispatch(fetchPolicies());
+    }
+  }, [dispatch, token, reload]);
 
   const renderPolicies = () => {
     const policyElements: ReactNode[] = [];

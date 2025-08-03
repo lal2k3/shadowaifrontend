@@ -1,14 +1,17 @@
 import { Box, Button } from '@mui/material';
 import { isEmpty } from 'components/general/Utils';
 import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from 'store';
 import { IRootState } from 'store/reducers';
 import {
+  createPolicy,
   policyWizardNextStep,
   policyWizardPrevStep,
+  updatePolicy,
 } from 'store/reducers/policies';
 
 const PolicyWizardNavigation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const currentPolicy = useSelector(
     (state: IRootState) => state.policies.currentPolicy,
   );
@@ -45,6 +48,23 @@ const PolicyWizardNavigation = () => {
     }
   };
 
+  const nextAction = () => {
+    if (step === totalSteps) {
+      const policyData = {
+        name: currentPolicy.name,
+        policy: currentPolicy.policy,
+      };
+
+      if (isEmpty(currentPolicy.id)) {
+        dispatch(createPolicy(policyData));
+      } else {
+        dispatch(updatePolicy({ id: currentPolicy.id, policyData }));
+      }
+    } else {
+      dispatch(policyWizardNextStep());
+    }
+  };
+
   const renderNext = () => {
     const visibility = navigation.next.visible ? 'visible' : 'hidden';
     const enabled = navigation.next.enabled;
@@ -54,7 +74,7 @@ const PolicyWizardNavigation = () => {
         <Button
           disabled={!enabled}
           variant="contained"
-          onClick={() => dispatch(policyWizardNextStep())}
+          onClick={() => nextAction()}
         >
           {getNextText()}
         </Button>

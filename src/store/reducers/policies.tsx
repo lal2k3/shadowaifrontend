@@ -6,6 +6,7 @@ import { Policy, PolicyKeyToEdit } from 'pages/policies/PolicyUtils';
 type PoliciesState = {
   policies: Policy[];
   loading: boolean;
+  reload: boolean;
   error: string | null;
   sidemenu: {
     open: boolean;
@@ -51,6 +52,28 @@ export const fetchPolicies = createAsyncThunk(
   },
 );
 
+export const createPolicy = createAsyncThunk(
+  'policies/createPolicy',
+  async (policyData: { name: string; policy: object }) => {
+    const response = await axios.post('/policies', policyData);
+    return response.data;
+  },
+);
+
+export const updatePolicy = createAsyncThunk(
+  'policies/updatePolicy',
+  async ({
+    id,
+    policyData,
+  }: {
+    id: string;
+    policyData: { name: string; policy: object };
+  }) => {
+    const response = await axios.put(`/policies/${id}`, policyData);
+    return response.data;
+  },
+);
+
 const validatePolicy = (policy: Policy) => {
   let isValidate = true;
 
@@ -58,12 +81,17 @@ const validatePolicy = (policy: Policy) => {
     isValidate = false;
   }
 
-  if (isObjectEmpty(policy.policy)) return isValidate;
+  if (isObjectEmpty(policy.policy)) {
+    isValidate = false;
+  }
+
+  return isValidate;
 };
 
 const initialState: PoliciesState = {
   policies: [],
   loading: false,
+  reload: true,
   error: null,
   sidemenu: {
     open: false,
@@ -138,10 +166,37 @@ const general = createSlice({
       .addCase(fetchPolicies.fulfilled, (state, action) => {
         state.loading = false;
         state.policies = action.payload?.policies;
+        state.reload = false;
       })
       .addCase(fetchPolicies.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch policies';
+      })
+      .addCase(createPolicy.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createPolicy.fulfilled, (state) => {
+        state.loading = false;
+        state.reload = true;
+        state.sidemenu.open = false;
+      })
+      .addCase(createPolicy.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to create policy';
+      })
+      .addCase(updatePolicy.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updatePolicy.fulfilled, (state) => {
+        state.loading = false;
+        state.reload = true;
+        state.sidemenu.open = false;
+      })
+      .addCase(updatePolicy.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to update policy';
       });
   },
 });
