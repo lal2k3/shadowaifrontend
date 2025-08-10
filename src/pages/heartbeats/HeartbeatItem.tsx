@@ -191,7 +191,7 @@ const HeartbeatItem = ({ data }: Props) => {
               <Box display="flex" alignItems="center" gap={0.5}>
                 <RiRobotLine size={16} />
                 <Typography variant="caption" color="text.secondary">
-                  Agent: {data.agentId.slice(0, 8)}...
+                  Agent: {data.agent.name}
                 </Typography>
               </Box>
             </Box>
@@ -304,7 +304,7 @@ const HeartbeatItem = ({ data }: Props) => {
             <Box display="flex" alignItems="center" gap={1}>
               <RiRobotLine size={16} />
               <Typography variant="body2">
-                <strong>Agent ID:</strong> {data.agentId}
+                <strong>Agent:</strong> {data.agent.name} (ID: {data.agentId})
               </Typography>
             </Box>
             {data.user.chromeProfile && (

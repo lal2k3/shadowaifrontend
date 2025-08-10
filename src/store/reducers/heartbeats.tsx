@@ -26,6 +26,11 @@ export type Heartbeat = {
     lastUpdated: string;
   };
   agentId: string;
+  agent: {
+    id: string;
+    name: string;
+  };
+  organizationId?: string;
   // Optional fields based on type
   blockedText?: string; // for type: 'blocked'
   userInput?: string; // for type: 'info'
