@@ -15,6 +15,8 @@ const IntegrationPage = lazy(
 
 const AgentsPage = lazy(() => import('../pages/agents/AgentsPage'));
 
+const BlockedPromptsPage = lazy(() => import('../pages/blockedPrompts/BlockedPromptsPage'));
+
 const MainRoutes: RouteObject = {
   path: '/',
   element: <MainPanel />,
@@ -34,6 +36,10 @@ const MainRoutes: RouteObject = {
     {
       path: 'agents',
       element: <SuspenseRoute component={<AgentsPage />} />,
+    },
+    {
+      path: 'blocked-prompts',
+      element: <SuspenseRoute component={<BlockedPromptsPage />} />,
     },
     {
       path: 'settings',

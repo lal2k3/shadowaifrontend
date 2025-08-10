@@ -5,7 +5,7 @@ import { IoSpeedometerOutline } from 'react-icons/io5';
 import { TbPuzzle2 } from 'react-icons/tb';
 //import { IoMedkitOutline } from 'react-icons/io5';
 //import { TbTopologyStar3 } from 'react-icons/tb';
-import { RiFileList3Line, RiRobotLine } from 'react-icons/ri';
+import { RiFileList3Line, RiRobotLine, RiShieldLine } from 'react-icons/ri';
 import { AppConfig } from 'components/general/AppConfig';
 //import { LuHandshake } from "react-icons/lu";
 
@@ -49,6 +49,13 @@ const MenuItems = ({ mode }: Props) => {
         url="/agents"
         mode={mode}
         title="Agents"
+      />
+      <MenuItem
+        content="Blocked Prompts"
+        icon={<RiShieldLine />}
+        url="/blocked-prompts"
+        mode={mode}
+        title="Blocked Prompts"
       />
       {/*<MenuItem
         content="Remediation"

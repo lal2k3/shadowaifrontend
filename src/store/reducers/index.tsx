@@ -5,6 +5,7 @@ import policies from './policies';
 import integrations from './integrations';
 import agents from './agents';
 import risks from './risks';
+import blockedPrompts from './blockedPrompts';
 
 const reducers = combineReducers({
   auth,
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   integrations,
   agents,
   risks,
+  blockedPrompts,
 });
 
 export type IRootState = ReturnType<typeof reducers>;
