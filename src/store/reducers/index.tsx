@@ -7,6 +7,7 @@ import agents from './agents';
 import risks from './risks';
 import blockedPrompts from './blockedPrompts';
 import heartbeats from './heartbeats';
+import heartbeatWidgets from './heartbeatWidgets';
 
 const reducers = combineReducers({
   auth,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   risks,
   blockedPrompts,
   heartbeats,
+  heartbeatWidgets,
 });
 
 export type IRootState = ReturnType<typeof reducers>;

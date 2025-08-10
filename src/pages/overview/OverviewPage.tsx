@@ -1,31 +1,25 @@
 import { Box } from '@mui/material';
 
-//import CveDoughnutCard from './cards/CveDoughnutCard';
-//import ZeroDayDoughnutCard from './cards/ZeroDayDoughnutCard';
-import TopRiskOwnersCard from './cards/TopRiskOwnersCard';
-import RisksByDepartmentCard from './cards/RisksByDepartmentCard';
-import TopAIModelsCard from './cards/TopAIModelsCard';
-//import SummaryCard from './cards/summaryCard/SummaryCard';
-import AlertsRecapCard from './cards/AlertsRecapCard';
-//import FunnelCard from './FunnelCard';
+import HeartbeatsByTypeCard from './cards/HeartbeatsByTypeCard';
+import TopAIUsersCard from './cards/TopAIUsersCard';
+import TopBlockedUsersCard from './cards/TopBlockedUsersCard';
+import TopPlatformsCard from './cards/TopPlatformsCard';
+import DepartmentStatsCard from './cards/DepartmentStatsCard';
 
 const OverviewPage = () => {
   return (
     <Box className="defaultPage homePage">
-      {/*<Box className="homePageRow">
-        <SummaryCard />
-      </Box>*/}
       <Box className="homePageRow">
-        <AlertsRecapCard />
-        <TopAIModelsCard />
+        <HeartbeatsByTypeCard />
+        <TopAIUsersCard />
+      </Box>
+      <Box className="homePageRow">
+        <TopBlockedUsersCard />
+        <TopPlatformsCard />
       </Box>
       <Box className="homePageRow finalRow">
-        <RisksByDepartmentCard />
-        <TopRiskOwnersCard />
+        <DepartmentStatsCard />
       </Box>
-      {/*<Box className="homePageRow">
-        <FunnelCard />
-      </Box>*/}
     </Box>
   );
 };
