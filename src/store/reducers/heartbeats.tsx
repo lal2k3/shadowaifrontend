@@ -40,22 +40,34 @@ export type Heartbeat = {
   __v: number;
 };
 
+export type PaginationInfo = {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+};
+
 type HeartbeatsState = {
   heartbeats: Heartbeat[];
+  pagination: PaginationInfo | null;
   loading: boolean;
   error: string | null;
 };
 
 export const fetchHeartbeats = createAsyncThunk(
   'heartbeats/fetchHeartbeats', 
-  async () => {
-    const response = await axios.get('/heartbeats');
+  async (params: { page?: number; limit?: number } = {}) => {
+    const { page = 1, limit = 10 } = params;
+    const response = await axios.get(`/heartbeats?page=${page}&limit=${limit}`);
     return response.data;
   }
 );
 
 const initialState: HeartbeatsState = {
   heartbeats: [],
+  pagination: null,
   loading: false,
   error: null,
 };
@@ -77,6 +89,7 @@ const heartbeats = createSlice({
       .addCase(fetchHeartbeats.fulfilled, (state, action) => {
         state.loading = false;
         state.heartbeats = action.payload?.data || [];
+        state.pagination = action.payload?.pagination || null;
       })
       .addCase(fetchHeartbeats.rejected, (state, action) => {
         state.loading = false;

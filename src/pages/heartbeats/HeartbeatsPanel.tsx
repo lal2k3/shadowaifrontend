@@ -12,7 +12,9 @@ import {
   Select,
   MenuItem,
   TextField,
-  InputAdornment
+  InputAdornment,
+  Pagination,
+  Stack
 } from '@mui/material';
 import { RiSearchLine, RiHeartLine, RiFilterLine } from 'react-icons/ri';
 import { useEffect, useState, useMemo } from 'react';
@@ -24,19 +26,21 @@ import { AppDispatch } from 'store';
 
 const HeartbeatsPanel = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { heartbeats, loading, error } = useSelector((state: IRootState) => state.heartbeats);
+  const { heartbeats, pagination, loading, error } = useSelector((state: IRootState) => state.heartbeats);
   const token = useSelector((state: IRootState) => state.auth.token);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [departmentFilter, setDepartmentFilter] = useState<string>('all');
   const [riskFilter, setRiskFilter] = useState<string>('all');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
 
   useEffect(() => {
     if (token) {
-      dispatch(fetchHeartbeats());
+      dispatch(fetchHeartbeats({ page: currentPage, limit: pageSize }));
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, currentPage, pageSize]);
 
   const getRiskLevel = (heartbeat: Heartbeat) => {
     switch (heartbeat.type) {
@@ -49,31 +53,37 @@ const HeartbeatsPanel = () => {
   };
 
   const filteredHeartbeats = useMemo(() => {
-    return heartbeats.filter((heartbeat: Heartbeat) => {
-      const getMainContent = () => {
-        switch (heartbeat.type) {
-          case 'blocked':
-            return heartbeat.blockedText || '';
-          case 'info':
-            return heartbeat.userInput || '';
-          case 'custom_event':
-            return heartbeat.eventData || '';
-          case 'heartbeat':
-            return `Heartbeat from ${heartbeat.user.name}`;
-          default:
-            return '';
-        }
-      };
+    // Note: For now, we show all heartbeats from the current page
+    // TODO: Implement server-side filtering to work with pagination
+    if (searchTerm || typeFilter !== 'all' || departmentFilter !== 'all' || riskFilter !== 'all') {
+      return heartbeats.filter((heartbeat: Heartbeat) => {
+        const getMainContent = () => {
+          switch (heartbeat.type) {
+            case 'blocked':
+              return heartbeat.blockedText || '';
+            case 'info':
+              return heartbeat.userInput || '';
+            case 'custom_event':
+              return heartbeat.eventData || '';
+            case 'heartbeat':
+              return `Heartbeat from ${heartbeat.user.name}`;
+            default:
+              return '';
+          }
+        };
 
-      const matchesSearch = getMainContent().toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           heartbeat.url.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           heartbeat.user.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType = typeFilter === 'all' || heartbeat.type === typeFilter;
-      const matchesDepartment = departmentFilter === 'all' || heartbeat.user.department === departmentFilter;
-      const matchesRisk = riskFilter === 'all' || getRiskLevel(heartbeat) === riskFilter;
-      
-      return matchesSearch && matchesType && matchesDepartment && matchesRisk;
-    });
+        const matchesSearch = getMainContent().toLowerCase().includes(searchTerm.toLowerCase()) ||
+                             heartbeat.url.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                             heartbeat.user.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesType = typeFilter === 'all' || heartbeat.type === typeFilter;
+        const matchesDepartment = departmentFilter === 'all' || heartbeat.user.department === departmentFilter;
+        const matchesRisk = riskFilter === 'all' || getRiskLevel(heartbeat) === riskFilter;
+        
+        return matchesSearch && matchesType && matchesDepartment && matchesRisk;
+      });
+    }
+    
+    return heartbeats;
   }, [heartbeats, searchTerm, typeFilter, departmentFilter, riskFilter]);
 
   const getStatsCount = (filterType: 'type' | 'department' | 'risk', value: string) => {
@@ -233,16 +243,29 @@ const HeartbeatsPanel = () => {
         </Grid>
       </Paper>
 
+      {(searchTerm || typeFilter !== 'all' || departmentFilter !== 'all' || riskFilter !== 'all') && (
+        <Alert severity="info" sx={{ mb: 4, borderRadius: 3 }}>
+          <Typography variant="body2">
+            <strong>Note:</strong> Filters are applied to the current page only. For comprehensive filtering across all data, server-side filtering will be implemented in a future update.
+          </Typography>
+        </Alert>
+      )}
+
       <Paper elevation={0} sx={{ p: 3, mb: 4, borderRadius: 3, border: '1px solid #e0e0e0' }}>
         <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
           Overview Statistics
         </Typography>
         <Box display="flex" gap={2} flexWrap="wrap">
           <Chip 
-            label={`Total: ${heartbeats.length}`} 
+            label={`Total: ${pagination?.total || 0}`} 
             color="primary" 
             variant="outlined"
             sx={{ fontWeight: 600 }}
+          />
+          <Chip 
+            label={`Current Page: ${heartbeats.length}`} 
+            color="secondary" 
+            variant="outlined"
           />
           <Chip 
             label={`Blocked: ${getStatsCount('type', 'blocked')}`} 
@@ -280,8 +303,26 @@ const HeartbeatsPanel = () => {
       <Box>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
           <Typography variant="h5" sx={{ fontWeight: 600 }}>
-            Heartbeats ({filteredHeartbeats.length})
+            Heartbeats ({filteredHeartbeats.length} {pagination && `of ${pagination.total} total`})
           </Typography>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <FormControl size="small" sx={{ minWidth: 120 }}>
+              <InputLabel>Per Page</InputLabel>
+              <Select
+                value={pageSize}
+                label="Per Page"
+                onChange={(e) => {
+                  setPageSize(Number(e.target.value));
+                  setCurrentPage(1); // Reset to first page when changing page size
+                }}
+              >
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={25}>25</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+                <MenuItem value={100}>100</MenuItem>
+              </Select>
+            </FormControl>
+          </Stack>
         </Box>
 
         {filteredHeartbeats.length === 0 ? (
@@ -314,6 +355,30 @@ const HeartbeatsPanel = () => {
             {filteredHeartbeats.map((heartbeat: Heartbeat) => (
               <HeartbeatItem key={heartbeat._id} data={heartbeat} />
             ))}
+            
+            {pagination && pagination.totalPages > 1 && (
+              <Box display="flex" justifyContent="center" alignItems="center" mt={4}>
+                <Stack direction="row" spacing={3} alignItems="center">
+                  <Typography variant="body2" color="text.secondary">
+                    Page {pagination.page} of {pagination.totalPages}
+                  </Typography>
+                  <Pagination
+                    count={pagination.totalPages}
+                    page={pagination.page}
+                    onChange={(_, page) => setCurrentPage(page)}
+                    color="primary"
+                    size="large"
+                    showFirstButton
+                    showLastButton
+                    siblingCount={1}
+                    boundaryCount={2}
+                  />
+                  <Typography variant="body2" color="text.secondary">
+                    Showing {((pagination.page - 1) * pagination.limit) + 1} - {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total}
+                  </Typography>
+                </Stack>
+              </Box>
+            )}
           </Box>
         )}
       </Box>
