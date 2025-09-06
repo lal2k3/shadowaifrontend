@@ -46,7 +46,7 @@ const TopPlatformsCard = () => {
   if (loading.platforms) {
     return (
       <CustomCard
-        className="piplelinesCard homepagecard"
+        className="piplelinesCard homepagecard tallCard"
         title="Top AI Platforms"
         titleLogo={<RiGlobalLine />}
       >
@@ -60,7 +60,7 @@ const TopPlatformsCard = () => {
   if (errors.platforms) {
     return (
       <CustomCard
-        className="piplelinesCard homepagecard"
+        className="piplelinesCard homepagecard tallCard"
         title="Top AI Platforms"
         titleLogo={<RiGlobalLine />}
       >
@@ -78,8 +78,9 @@ const TopPlatformsCard = () => {
       titleLogo={<RiGlobalLine />}
     >
       {topPlatforms.length > 0 ? (
-        <Box sx={{ width: '100%', paddingTop: '10px' }}>
-          {topPlatforms.slice(0, 6).map((platform, index) => {
+        <Box sx={{ width: '100%', paddingTop: '10px', flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <Box sx={{ flex: 1, overflowY: 'auto', pr: 1 }}>
+            {topPlatforms.slice(0, 10).map((platform, index) => {
             const percentage = maxCount > 0 ? (platform.count / maxCount) * 100 : 0;
             const sharePercentage = totalCount > 0 ? ((platform.count / totalCount) * 100).toFixed(1) : '0';
             const color = getPlatformColor(index);
@@ -136,18 +137,19 @@ const TopPlatformsCard = () => {
               </Paper>
             );
           })}
+          </Box>
           
-          {topPlatforms.length > 6 && (
-            <Box textAlign="center" mt={2}>
+          {topPlatforms.length > 10 && (
+            <Box textAlign="center" mt={1}>
               <Typography variant="caption" color="text.secondary">
-                Showing top 6 of {topPlatforms.length} platforms
+                Showing top 10 of {topPlatforms.length} platforms
               </Typography>
             </Box>
           )}
           
           <Box 
             textAlign="center" 
-            mt={2} 
+            mt={1} 
             p={1} 
             sx={{ 
               backgroundColor: 'primary.main', 

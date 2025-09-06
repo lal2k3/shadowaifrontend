@@ -42,7 +42,7 @@ const TopAIUsersCard = () => {
   if (loading.topUsers || errors.topUsers || topAIUsers.length === 0) {
     return (
       <CustomCard
-        className="piplelinesCard homepagecard"
+        className="piplelinesCard homepagecard firstRowCard"
         title="Top AI Users"
         titleLogo={<RiTrophyLine />}
       >
@@ -100,7 +100,7 @@ const TopAIUsersCard = () => {
       title="Top AI Users"
       titleLogo={<RiTrophyLine />}
     >
-      <Box sx={{ width: '100%', height: '100%' }}>
+      <Box sx={{ width: '100%', height: '300px' }}>
         <Bar options={options} data={data} />
       </Box>
     </CustomCard>

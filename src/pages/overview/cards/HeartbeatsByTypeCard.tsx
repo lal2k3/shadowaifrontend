@@ -36,7 +36,7 @@ const HeartbeatsByTypeCard = () => {
   if (loading.byType || errors.byType || heartbeatsByType.length === 0) {
     return (
       <CustomCard
-        className="cveDoughnutCard homepagecard"
+        className="cveDoughnutCard homepagecard firstRowCard"
         title="Heartbeats by Type"
         titleLogo={<RiBarChartLine />}
       >
@@ -91,7 +91,7 @@ const HeartbeatsByTypeCard = () => {
       <Box
         sx={{
           width: '100%',
-          height: '90%',
+          height: '300px',
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center',

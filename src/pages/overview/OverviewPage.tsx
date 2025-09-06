@@ -13,12 +13,14 @@ const OverviewPage = () => {
         <HeartbeatsByTypeCard />
         <TopAIUsersCard />
       </Box>
-      <Box className="homePageRow">
-        <TopBlockedUsersCard />
-        <TopPlatformsCard />
-      </Box>
-      <Box className="homePageRow finalRow">
-        <DepartmentStatsCard />
+      <Box className="homePageRow secondRow">
+        <Box className="leftColumn">
+          <TopBlockedUsersCard />
+          <DepartmentStatsCard />
+        </Box>
+        <Box className="rightColumn">
+          <TopPlatformsCard />
+        </Box>
       </Box>
     </Box>
   );

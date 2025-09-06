@@ -250,9 +250,29 @@ $defaultCardPadding: 20px;
   .homePageRow {
     display: flex;
     gap: 20px;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
     flex-direction: row;
+    
+    &.secondRow {
+      display: flex;
+      gap: 20px;
+      align-items: stretch;
+      
+      .leftColumn {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex: 1;
+        min-width: 0;
+      }
+      
+      .rightColumn {
+        flex: 1;
+        display: flex;
+        min-width: 0;
+      }
+    }
   }
 
   .finalRow {
@@ -284,20 +304,33 @@ $defaultCardPadding: 20px;
 
 .piplelinesCard {
   min-width: 300px;
-  width: 0;
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  flex: 1 0;
-  height: 30vh;
+  flex: 1;
+  min-height: 0;
+  
+  &.tallCard {
+    flex: 2;
+  }
+  
+  &.firstRowCard {
+    height: 380px;
+    max-height: 380px;
+  }
 }
 
 .cveDoughnutCard {
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  height: 30vh;
-  flex: 1 0;
+  flex: 1;
+  min-height: 0;
+  
+  &.firstRowCard {
+    height: 380px;
+    max-height: 380px;
+  }
 }
 
 .recapCardold {
